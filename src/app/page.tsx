@@ -1,63 +1,33 @@
+import { About } from "@/components/About";
 import { Contact } from "@/components/Contact";
+import { Effects } from "@/components/Effects";
 import { Experience } from "@/components/Experience";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { Section } from "@/components/Section";
-import { education, profile, skills } from "@/data/profile";
+import { Skills } from "@/components/Skills";
+import { Background } from "@/components/three/Background";
+import { profile } from "@/data/profile";
 
 export default function Home() {
   return (
     <>
+      <Background />
+      <Effects />
       <Header />
-      <main className="mx-auto max-w-4xl px-4 sm:px-6">
+      <main className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6">
         <Hero />
-
-        <Section id="about" title="About">
-          <div className="space-y-4 text-lg leading-relaxed text-muted">
-            {profile.about.map((p) => (
-              <p key={p}>{p}</p>
-            ))}
-          </div>
-        </Section>
-
+        <About />
         <Experience />
-
-        <Section id="skills" title="Skills">
-          <div className="grid gap-8 sm:grid-cols-2">
-            {skills.map((g) => (
-              <div key={g.group}>
-                <h3 className="text-sm font-semibold">{g.group}</h3>
-                <ul className="mt-3 flex flex-wrap gap-2">
-                  {g.items.map((s) => (
-                    <li
-                      key={s}
-                      className="rounded-md border border-line bg-surface px-3 py-1.5 text-sm"
-                    >
-                      {s}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </Section>
-
-        <Section id="education" title="Education">
-          {education.map((e) => (
-            <div key={e.school}>
-              <p className="font-mono text-xs text-muted">
-                {e.start} – {e.end}
-              </p>
-              <h3 className="mt-2 text-lg font-semibold">{e.school}</h3>
-              <p className="text-muted">{e.degree}</p>
-            </div>
-          ))}
-        </Section>
-
+        <Skills />
         <Contact />
       </main>
-      <footer className="mx-auto max-w-4xl border-t border-line px-4 py-8 font-mono text-xs text-muted sm:px-6">
-        © {new Date().getFullYear()} {profile.name}
+      <footer className="relative z-10 mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 border-t border-line px-4 py-10 text-sm text-dim sm:px-6">
+        <p>
+          © {new Date().getFullYear()} {profile.name}. Designed &amp; built with Next.js and Three.js.
+        </p>
+        <a href="#top" className="transition-colors hover:text-fg">
+          Back to top ↑
+        </a>
       </footer>
     </>
   );

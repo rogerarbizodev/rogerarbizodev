@@ -8,34 +8,49 @@ const stripProtocol = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "");
 export function Contact() {
   const { email, linkedin, github } = profile.contact;
   const links: ContactLink[] = [];
-  if (email) links.push({ label: "Email", href: `mailto:${email}`, text: email });
   if (linkedin) links.push({ label: "LinkedIn", href: linkedin, text: stripProtocol(linkedin) });
   if (github) links.push({ label: "GitHub", href: github, text: stripProtocol(github) });
 
   return (
-    <Section id="contact" title="Contact">
-      <p className="text-2xl font-semibold tracking-tight sm:text-3xl">
-        Have a project or role in mind? Let&apos;s talk.
-      </p>
-      {links.length > 0 ? (
-        <ul className="mt-8 space-y-3">
+    <Section
+      id="contact"
+      index="04"
+      eyebrow="Contact"
+      title={
+        <>
+          Let&apos;s build <span className="text-gradient">something great</span>
+        </>
+      }
+    >
+      <div className="reveal glow-card relative overflow-hidden p-8 text-center sm:p-16">
+        <div
+          className="pointer-events-none absolute -top-40 left-1/2 size-[28rem] -translate-x-1/2 rounded-full bg-violet/30 blur-[100px]"
+          aria-hidden
+        />
+        <p className="relative mx-auto max-w-xl text-lg leading-relaxed text-muted">
+          Have a project, a role, or a hard problem in mind? I&apos;m always happy to talk
+          about building great software.
+        </p>
+
+        <div className="relative mt-10 flex flex-wrap justify-center gap-4">
+          {email ? (
+            <a href={`mailto:${email}`} className="btn-glow">
+              <span>
+                {email}
+                <span aria-hidden>↗</span>
+              </span>
+            </a>
+          ) : (
+            <span className="btn-ghost cursor-default opacity-70">Contact details coming soon</span>
+          )}
           {links.map((l) => (
-            <li key={l.label} className="flex gap-4">
-              <span className="w-20 shrink-0 font-mono text-sm text-muted">{l.label}</span>
-              <a
-                href={l.href}
-                className="break-all text-accent underline-offset-4 hover:underline"
-                target={l.href.startsWith("mailto:") ? undefined : "_blank"}
-                rel="noreferrer"
-              >
-                {l.text}
-              </a>
-            </li>
+            <a key={l.label} href={l.href} target="_blank" rel="noreferrer" className="btn-ghost">
+              {l.label}
+              <span aria-hidden>↗</span>
+            </a>
           ))}
-        </ul>
-      ) : (
-        <p className="mt-6 text-muted">Contact details coming soon.</p>
-      )}
+        </div>
+      </div>
     </Section>
   );
 }

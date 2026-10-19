@@ -25,5 +25,6 @@ export function duration(start: string, end?: string) {
 export function yearsOfExperience(firstStart: string) {
   const { y, m } = parse(firstStart);
   const now = new Date();
-  return Math.floor(((now.getFullYear() - y) * 12 + now.getMonth() + 1 - m) / 12);
+  // Inclusive month count, matching duration() above (Nov 2019 – Oct 2026 = 7 yrs).
+  return Math.floor(((now.getFullYear() - y) * 12 + now.getMonth() + 1 - m + 1) / 12);
 }
